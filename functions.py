@@ -70,20 +70,29 @@ def fillallonezeros(fullarray):
                                 options = np.append(options, i)
                 if len(options) == 1:
                     fullarray[index] = options[0]
+                    print("Filled a value")
                     flag = True
 
                 options = np.array([])
 
 
 def findoptions(fullarray):
+    listofvalues = []
     for index, item in np.ndenumerate(fullarray):
-        options = np.array([])
         if item == 0:
+            valuesofthiscell = [index]
+            tupleofvalues = []
             for i in range(1, 10):
                 if i not in fullarray[index[0]]:
                     if i not in fullarray[:, index[1]]:
                         loc = np.array(index)
                         loc = loc // 3
                         if i not in fullarray[loc[0] * 3:loc[0] * 3 + 3, loc[1] * 3:loc[1] * 3 + 3]:
-                            options = np.append(options, i)
-            print(options, " are the options for ", index)
+                            tupleofvalues.append(i)
+            valuesofthiscell.append(tupleofvalues)
+            listofvalues.append(valuesofthiscell)
+        listofvalues = sorted(listofvalues, key=lambda x: len(x[1]))
+    return listofvalues
+
+# def tryingfunc(fullarray, options):
+
